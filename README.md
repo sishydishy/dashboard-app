@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+## Scratchpad
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Real time HTML editor with preview. Uses [ACE Editor](https://github.com/mundizzle/scratchpad)
 
-## Available Scripts
+Hopefully useful for quickly trying out some HTML/CSS and even JS code and seeing how it looks.
 
-In the project directory, you can run:
+Inspired by [Scratchpad](http://scratchpad.io)
 
-### `npm start`
+For more substantial coding excercises, I highly recommend more capable and featureful apps like..
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Codepen](http://codepen.io)
+- [JSFiddle](http://jsfiddle.net)
+- [JSBin](http://jsbin.com)
+- [Dabblet](http://dabblet.com)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Things to know
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### LocalStorage
+Scratchpad saves and retrieves documents using the brower's localStorage. The document's ID is the ```location.hash```
 
-### `npm run build`
+For example ```http://mundizzle.github.io/scratchpad/#cool_codez``` will create an entry in localStorage named ```#cool_codez```. You can verify this by typing ```localStorage.getItem('#cool_codez')``` in your browser's JS console.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Create new document
+You can create a new document by changing the ```location.hash``` to any ID you want.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If no hash is supplied, for example ```http://mundizzle.github.io/scratchpad```, then a hash will be generated via ```new Date().getTime()``` and that will be the ID of the document.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If there is not an entry in localStorage for a given document ID, Scratchpad will make an entry containing some basic HTML boilerplate.
 
-### `npm run eject`
+### Shareable Links
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Are supported by appending a querystring parameter of ```code``` to the URL. Scratchpad automatically create a document ID and use the ```code``` value as the document.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Example: ```http://localhost:8080/?code=<b>Boo!</b>```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### JavaScript Evaluation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Scratchpad does not evaluate JS real time like it does for HTML & CSS. Instead, if the document contains any ```<script>``` tags, a lightning bolt icon will appear. Clicking this will execute the JS code.
 
-## Learn More
+Scratchpad does not currently support script tags with src (```<script src="">```) from servers that are not CORS enabled.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Browser Compatibility
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Only tested on Mac Chrome/Firefox/Safari latest
